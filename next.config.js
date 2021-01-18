@@ -1,50 +1,41 @@
-/* eslint-disable */
-const withLess = require('@zeit/next-less');
-const withSass = require('@zeit/next-sass');
-const lessToJS = require('less-vars-to-js');
-const fs = require('fs');
-const path = require('path');
+// const withLess = require('@zeit/next-less')
 
-// Where your antd-custom.less file lives
-// const themeVariables = lessToJS(
-//   fs.readFileSync(path.resolve(__dirname, './src/antd-custom.less'), 'utf8')
-// );
+// module.exports = withLess({
+//   cssModules: true,
+//   webpack: function (config) {
+//     return config;
+//   },
+//   css: [
+//     { loader: "less-loader", options: { lessOptions: { javascriptEnabled: true } } }
+//   ]
+// });
 
-module.exports = withSass({
-  cssModules: true,
-  ...withLess({
-    lessLoaderOptions: {
-      javascriptEnabled: true,
-      // modifyVars: themeVariables,  make your antd custom effective
-      importLoaders: 0
-    },
-    cssLoaderOptions: {
-      importLoaders: 3,
-      localIdentName: '[local]___[hash:base64:5]'
-    },
-    webpack: (config, { isServer }) => {
-      //Make Ant styles work with less
-      if (isServer) {
-        const antStyles = /antd\/.*?\/style.*?/;
-        const origExternals = [...config.externals];
-        config.externals = [
-          (context, request, callback) => {
-            if (request.match(antStyles)) return callback();
-            if (typeof origExternals[0] === 'function') {
-              origExternals[0](context, request, callback);
-            } else {
-              callback();
-            }
-          },
-          ...(typeof origExternals[0] === 'function' ? [] : origExternals)
-        ];
+// next.config.js
+const withAntdLess = require('next-plugin-antd-less')
 
-        config.module.rules.unshift({
-          test: antStyles,
-          use: 'null-loader'
-        });
+module.exports = withAntdLess({
+  lessVarsFilePath: './src/styles/variables.less',
+  cssLoaderOptions: {
+  //   https://github.com/webpack-contrib/css-loader#object
+  //
+  //   sourceMap: true, // default false
+  //   esModule: false, // default false
+  //   modules: {
+  //     exportLocalsConvention: 'asIs',
+  //     exportOnlyLocals: true,
+  //     mode: 'pure',
+  //     getLocalIdent: [Function: getCssModuleLocalIdent]
+  //   }
+  },
+  // Other Config Here...
+
+  webpack(config) {
+    config.module.rules.push(
+      {
+        test: /\.svg$/,
+        use: ['@svgr/webpack']
       }
-      return config;
-    }
-  })
+    )
+    return config
+  },
 });

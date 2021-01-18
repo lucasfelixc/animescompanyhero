@@ -2,9 +2,6 @@ import Head from 'next/head'
 
 import PropTypes from 'prop-types'
 
-import '../styles/theme.less'
-import '../styles/global.less'
-
 function MyApp({ Component, pageProps }) {
   return (
     <>

@@ -9,7 +9,7 @@ import { Layout } from 'antd'
 import api from '../services/api'
 
 import Logo from '../assets/icons/Logo.svg'
-import LogoMin from '../assets/icons/LogoMin.svg'
+import LogoMin from '../assets/icons/logoDark.svg'
 import Plus from '../assets/icons/plus.svg'
 // import ArrowUp from '../assets/icons/arrowUp.svg'
 

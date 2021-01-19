@@ -11,26 +11,21 @@ import api from '../services/api'
 import Logo from '../assets/icons/Logo.svg'
 import LogoMin from '../assets/icons/LogoMin.svg'
 import Plus from '../assets/icons/plus.svg'
-// import naruto from '../assets/images/naruto.png'
+import ArrowUp from '../assets/icons/arrowUp.svg'
 
 const { Header, Content } = Layout
+const count = [1]
 
 export default function Home() {
-  const [contentData, setContentData] = useState('')
-  const animes = contentData.data
+  const [contentData, setContentData] = useState([])
 
   useEffect(() => {
-    async function setData() {
-      const { data } = await api
-        .get('/anime')
-        .catch(error => console.log(error))
+    api.get('/anime').then(response => {
+      setContentData(response.data.data)
+    })
 
-      setContentData(data)
-      console.log(data)
-    }
-
-    setData()
-  })
+    console.log(contentData.attributes)
+  }, [count])
 
   return (
     <div>
@@ -58,19 +53,27 @@ export default function Home() {
             </div>
           </Content>
           <ul className="list">
-            {animes.map((value, index) => {
+            {contentData.map((value, index) => {
               console.log(value)
               return (
                 <li key={index} className="itemList">
+                  <div className="contentTitle">
+                    <strong>
+                      {value.attributes.titles.en
+                        ? value.attributes.titles.en
+                        : value.attributes.titles.en_jp}
+                    </strong>
+                  </div>
                   <div className="containerImg">
                     <Image
-                      src={value.attributes.postImage.tiny}
+                      src={value.attributes.posterImage.original}
                       alt={
                         value.attributes.titles.en
                           ? value.attributes.titles.en
                           : value.attributes.titles.en_jp
                       }
-                      layout="fill"
+                      width={168}
+                      height={238.25}
                     />
                   </div>
                   <div className="contentInfo">

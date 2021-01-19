@@ -11,7 +11,7 @@ import api from '../services/api'
 import Logo from '../assets/icons/Logo.svg'
 import LogoMin from '../assets/icons/LogoMin.svg'
 import Plus from '../assets/icons/plus.svg'
-import ArrowUp from '../assets/icons/arrowUp.svg'
+// import ArrowUp from '../assets/icons/arrowUp.svg'
 
 const { Header, Content } = Layout
 const count = [1]
@@ -23,8 +23,6 @@ export default function Home() {
     api.get('/anime').then(response => {
       setContentData(response.data.data)
     })
-
-    console.log(contentData.attributes)
   }, [count])
 
   return (
@@ -39,13 +37,16 @@ export default function Home() {
             <div className="contentImg">
               <div className="imgPlace">
                 <Image
-                  src="/src/assets/images/naruto.png"
+                  src={contentData[0].attributes.coverImage.original}
                   alt="naruto"
                   layout="fill"
                 />
               </div>
               <div className="infos">
-                <strong>Name of anime</strong>
+                <strong>
+                  {contentData[0].attributes.titles.en ||
+                    contentData[0].attributes.titles.en_jp}
+                </strong>
                 <button className="btnPlus">
                   <Plus />
                 </button>
@@ -53,10 +54,10 @@ export default function Home() {
             </div>
           </Content>
           <ul className="list">
-            {contentData.map((value, index) => {
+            {contentData.slice(1).map((value, index) => {
               console.log(value)
               return (
-                <li key={index} className="itemList">
+                <li key={value.id} className="itemList">
                   <div className="contentTitle">
                     <strong>
                       {value.attributes.titles.en
@@ -68,9 +69,8 @@ export default function Home() {
                     <Image
                       src={value.attributes.posterImage.original}
                       alt={
-                        value.attributes.titles.en
-                          ? value.attributes.titles.en
-                          : value.attributes.titles.en_jp
+                        value.attributes.titles.en ||
+                        value.attributes.titles.en_jp
                       }
                       width={168}
                       height={238.25}

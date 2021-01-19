@@ -9,7 +9,7 @@ import { Layout } from 'antd'
 import api from '../services/api'
 
 import Logo from '../assets/icons/Logo.svg'
-import LogoMin from '../assets/icons/logoDark.svg'
+import LogoMin from '../assets/icons/LogoMin.svg'
 import Plus from '../assets/icons/plus.svg'
 // import ArrowUp from '../assets/icons/arrowUp.svg'
 
@@ -18,10 +18,12 @@ const count = [1]
 
 export default function Home() {
   const [contentData, setContentData] = useState([])
+  const [firstAnime, setFirstAnime] = useState([])
 
   useEffect(() => {
     api.get('/anime').then(response => {
       setContentData(response.data.data)
+      setFirstAnime(contentData[0])
     })
   }, [count])
 
@@ -34,24 +36,28 @@ export default function Home() {
             <LogoMin className="logoMin" />
           </Header>
           <Content className="site-layout-background">
-            <div className="contentImg">
-              <div className="imgPlace">
-                <Image
-                  src={contentData[0].attributes.coverImage.original}
-                  alt="naruto"
-                  layout="fill"
-                />
-              </div>
-              <div className="infos">
-                <strong>
-                  {contentData[0].attributes.titles.en ||
-                    contentData[0].attributes.titles.en_jp}
-                </strong>
-                <button className="btnPlus">
-                  <Plus />
-                </button>
-              </div>
-            </div>
+            {contentData.slice(0, 1).map((value, index) => {
+              return (
+                <div className="contentImg" key={value.id}>
+                  <div className="imgPlace">
+                    <Image
+                      src={contentData[0].attributes.coverImage.original}
+                      alt="naruto"
+                      layout="fill"
+                    />
+                  </div>
+                  <div className="infos">
+                    <strong>
+                      {contentData[0].attributes.titles.en ||
+                        contentData[0].attributes.titles.en_jp}
+                    </strong>
+                    <button className="btnPlus">
+                      <Plus />
+                    </button>
+                  </div>
+                </div>
+              )
+            })}
           </Content>
           <ul className="list">
             {contentData.slice(1).map((value, index) => {

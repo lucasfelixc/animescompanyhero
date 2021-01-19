@@ -1,6 +1,12 @@
 import 'antd/dist/antd.less'
 import '../styles/pages/home.less'
-import { Layout, List, Card } from 'antd'
+
+import { useEffect, useState } from 'react'
+import Image from 'next/image'
+
+import { Layout } from 'antd'
+
+import api from '../services/api'
 
 import Logo from '../assets/icons/Logo.svg'
 import LogoMin from '../assets/icons/LogoMin.svg'
@@ -9,22 +15,23 @@ import Plus from '../assets/icons/plus.svg'
 
 const { Header, Content } = Layout
 
-const data = [
-  {
-    title: 'Title 1'
-  },
-  {
-    title: 'Title 2'
-  },
-  {
-    title: 'Title 3'
-  },
-  {
-    title: 'Title 4'
-  }
-]
-
 export default function Home() {
+  const [contentData, setContentData] = useState('')
+  const animes = contentData.data
+
+  useEffect(() => {
+    async function setData() {
+      const { data } = await api
+        .get('/anime')
+        .catch(error => console.log(error))
+
+      setContentData(data)
+      console.log(data)
+    }
+
+    setData()
+  })
+
   return (
     <div>
       <main>
@@ -33,10 +40,15 @@ export default function Home() {
             <Logo className="logoMax" />
             <LogoMin className="logoMin" />
           </Header>
-          {/* <img src={naruto} alt="" /> */}
           <Content className="site-layout-background">
             <div className="contentImg">
-              <div className="test"></div>
+              <div className="imgPlace">
+                <Image
+                  src="/src/assets/images/naruto.png"
+                  alt="naruto"
+                  layout="fill"
+                />
+              </div>
               <div className="infos">
                 <strong>Name of anime</strong>
                 <button className="btnPlus">
@@ -45,15 +57,36 @@ export default function Home() {
               </div>
             </div>
           </Content>
-          <List
-            grid={{ gutter: 16, column: 4 }}
-            dataSource={data}
-            renderItem={item => (
-              <List.Item>
-                <Card title={item.title}>Card content</Card>
-              </List.Item>
-            )}
-          />
+          <ul className="list">
+            {animes.map((value, index) => {
+              console.log(value)
+              return (
+                <li key={index} className="itemList">
+                  <div className="containerImg">
+                    <Image
+                      src={value.attributes.postImage.tiny}
+                      alt={
+                        value.attributes.titles.en
+                          ? value.attributes.titles.en
+                          : value.attributes.titles.en_jp
+                      }
+                      layout="fill"
+                    />
+                  </div>
+                  <div className="contentInfo">
+                    <strong>
+                      {value.attributes.titles.en
+                        ? value.attributes.titles.en
+                        : value.attributes.titles.en_jp}
+                    </strong>
+                    <button className="btnPlus">
+                      <Plus />
+                    </button>
+                  </div>
+                </li>
+              )
+            })}
+          </ul>
         </Layout>
       </main>
     </div>

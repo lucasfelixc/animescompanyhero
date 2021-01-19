@@ -1,42 +1,21 @@
-@background: #2C254A;
-@bcsecondary: #39315C;
-@bcdark: #272042;
-@text: #e1e1e6;
-@primary: #E0365F;
-@dark: #D14151;
+@import '../variables.less';
+@import '../global.less';
 
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
+.container {
+  width: 100vw;
+  height: 100vh;
 }
 
-body {
-  background: @background;
-  color: @text;
-  font: 400 16px 'Poppins', sans-serif;
+.header {
+  background: @bcdark;
+
+  display: flex;
+  // justify-content: center;
+  align-items: center;
 }
 
-li {
-  list-style: none;
-}
-
-button {
-  border: none;
-  outline: none;
-  cursor: pointer;
-  font-family: 'Poppins', sans-serif;
-}
-
-a {
-  text-decoration: none;
-}
-
-input, select {
-  outline: none;
-  font-size: 16px;
-  font-weight: 500;
-  font-family: Poppins, sans-serif;
+.header .logoMax {
+  display: none;
 }
 
 .logo {
@@ -53,5 +32,64 @@ input, select {
 }
 
 .site-layout-background {
-  background: #fff;
+  display: flex;
+  justify-content: center;
+  // align-items: center;
+
+  background: @background;
+}
+
+.site-layout-background .contentImg {
+  width: 80%;
+  height: 65%;
+
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+
+  margin-top: 50px;
+  border-radius: 40px;
+
+  background: @bcsecondary;
+
+  position: relative;
+}
+
+.site-layout-background .contentImg .test {
+  width: 100%;
+  height: 80%;
+
+  background: #353030;
+
+  border-radius: 40px;
+
+  position: absolute;
+  top: 0;
+}
+
+.site-layout-background .contentImg .infos {
+  width: 100%;
+  height: 40%;
+
+  background: @bcdark;
+
+  border-radius: 0 0 40px 40px;
+  padding: 0 25px 15px 25px;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+}
+
+.contentImg .infos .btnPlus {
+  width: 40px;
+  height: 40px;
+
+  background: @bcsecondary;
+
+  border-radius: 50% 50%;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }

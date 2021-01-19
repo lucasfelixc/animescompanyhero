@@ -1,4 +1,5 @@
 const withPlugins = require('next-compose-plugins')
+const withLess = require('@zeit/next-less')
 const withAntdLess = require('next-plugin-antd-less')
 const lessToJS = require('less-vars-to-js');
 const fs = require('fs');
@@ -6,7 +7,7 @@ const path = require('path');
 
 // Where your antd-custom.less file lives
 const themeVariables = lessToJS(
-  fs.readFileSync(path.resolve(__dirname, './assets/styles/variables.less'), 'utf8')
+  fs.readFileSync(path.resolve(__dirname, './src/styles/variables.less'), 'utf8')
 );
 
 const nextConfig = {
@@ -56,4 +57,8 @@ module.exports = withPlugins([
       importLoaders: 3,
       localIdentName: '[local]___[hash:base64:5]',
     }
-  }], nextConfig]);
+  }],
+  [withLess, {
+    // cssModules: true,
+  }]
+], nextConfig);

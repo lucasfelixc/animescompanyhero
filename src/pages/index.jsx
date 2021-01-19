@@ -18,12 +18,10 @@ const count = [1]
 
 export default function Home() {
   const [contentData, setContentData] = useState([])
-  const [firstAnime, setFirstAnime] = useState([])
 
   useEffect(() => {
     api.get('/anime').then(response => {
       setContentData(response.data.data)
-      setFirstAnime(contentData[0])
     })
   }, [count])
 

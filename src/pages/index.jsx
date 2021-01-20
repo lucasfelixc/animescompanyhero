@@ -58,7 +58,7 @@ export default function Home() {
                           <Modal
                             key={value.id}
                             visible={true}
-                            content={value.attributes}
+                            content={value}
                           />
                         ])
                       }
@@ -80,11 +80,7 @@ export default function Home() {
                   onClick={() =>
                     setModals([
                       ...modals,
-                      <Modal
-                        key={value.id}
-                        visible={true}
-                        content={value.attributes}
-                      />
+                      <Modal key={value.id} visible={true} content={value} />
                     ])
                   }
                 >

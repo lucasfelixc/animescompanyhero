@@ -10,6 +10,8 @@ import ReactPlayer from 'react-player/youtube'
 const CustomModal = ({ content }) => {
   const [isVisible, setIsVisible] = useState(true)
 
+  console.log(content)
+
   return (
     <Modal
       visible={isVisible}
@@ -21,18 +23,20 @@ const CustomModal = ({ content }) => {
       }}
     >
       <div className="header">
-        <strong>{content.titles.en || content.titles.en_jp}</strong>
+        <strong>
+          {content.attributes.titles.en || content.attributes.titles.en_jp}
+        </strong>
       </div>
       <div className="body">
         <div className="linkTrailer">
           <ReactPlayer
-            url={`https://www.youtube.com/watch?v=${content.youtubeVideoId}`}
+            url={`https://www.youtube.com/watch?v=${content.attributes.youtubeVideoId}`}
             controls={true}
             width={400}
             height={224.88}
           />
         </div>
-        <p>{content.synopsis}</p>
+        <p>{content.attributes.synopsis}</p>
       </div>
     </Modal>
   )

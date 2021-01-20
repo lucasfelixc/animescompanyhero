@@ -9,7 +9,6 @@ import ReactPlayer from 'react-player/youtube'
 
 const CustomModal = ({ idYtb, title, titleJp, synopsis }) => {
   const [isVisible, setIsVisible] = useState(true)
-  // const idTrigun = 'vWWYXlCkq6w'
 
   /* Passando os iDs manualmente pois esses animes em específico estão sem iD
   vindo da API, para evitar de ficar algo vazio, decidi fazer uma função que

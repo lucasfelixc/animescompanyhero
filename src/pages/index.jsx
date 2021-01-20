@@ -13,7 +13,6 @@ import api from '../services/api'
 import Logo from '../assets/icons/Logo.svg'
 import LogoMin from '../assets/icons/LogoMin.svg'
 import Plus from '../assets/icons/plus.svg'
-// import ArrowUp from '../assets/icons/arrowUp.svg'
 
 const { Header, Content } = Layout
 
@@ -41,7 +40,7 @@ export default function Home() {
                   <div className="imgPlace">
                     <Image
                       src={value.attributes.coverImage.large}
-                      alt="naruto"
+                      alt="spotlight"
                       layout="fill"
                     />
                   </div>

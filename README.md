@@ -41,7 +41,7 @@ O projeto foi desenvolvido utilizando as seguintes tecnologias
 
 <h1 align="center">
     <img alt="Mobile Home" src=".github/mobile1.png" width="300px">
-    <img alt="Mobile Detail" src=".github/mobile2.svg" width="300px">
+    <img alt="Mobile Detail" src=".github/mobile2.png" width="300px">
 </h1>
 
 <a id="como-usar"></a>

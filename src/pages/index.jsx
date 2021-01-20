@@ -3,8 +3,9 @@ import '../styles/pages/home.less'
 
 import { useEffect, useState } from 'react'
 import Image from 'next/image'
+import ReactPlayer from 'react-player/youtube'
 
-import { Layout } from 'antd'
+import { Layout, Modal } from 'antd'
 
 import api from '../services/api'
 
@@ -18,12 +19,27 @@ const count = [1]
 
 export default function Home() {
   const [contentData, setContentData] = useState([])
+  const [isModalVisible, setIsModalVisible] = useState(false)
 
   useEffect(() => {
     api.get('/anime').then(response => {
       setContentData(response.data.data)
     })
+
+    console.log(contentData)
   }, [count])
+
+  const showModal = () => {
+    setIsModalVisible(true)
+  }
+
+  const handleOk = () => {
+    setIsModalVisible(false)
+  }
+
+  const handleCancel = () => {
+    setIsModalVisible(false)
+  }
 
   return (
     <div>
@@ -49,9 +65,33 @@ export default function Home() {
                       {contentData[0].attributes.titles.en ||
                         contentData[0].attributes.titles.en_jp}
                     </strong>
-                    <button className="btnPlus">
+                    <button className="btnPlus" onClick={showModal}>
                       <Plus />
                     </button>
+
+                    <Modal
+                      visible={isModalVisible}
+                      onOk={handleOk}
+                      onCancel={handleCancel}
+                    >
+                      <div className="header">
+                        <strong>
+                          {contentData[0].attributes.titles.en ||
+                            contentData[0].attributes.titles.en_jp}
+                        </strong>
+                      </div>
+                      <div className="body">
+                        <div className="linkTrailer">
+                          <ReactPlayer
+                            url={`https://www.youtube.com/watch?v=${contentData[0].attributes.youtubeVideoId}`}
+                            controls={true}
+                            width={400}
+                            height={224.88}
+                          />
+                        </div>
+                        <p>{contentData[0].attributes.synopsis}</p>
+                      </div>
+                    </Modal>
                   </div>
                 </div>
               )

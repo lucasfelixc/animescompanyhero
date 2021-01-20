@@ -58,6 +58,10 @@ export default function Home() {
                           <Modal
                             key={value.id}
                             visible={true}
+                            idYtb={value.attributes.youtubeVideoId}
+                            title={value.attributes.titles.en}
+                            titleJp={value.attributes.titles.en_jp}
+                            synopsis={value.attributes.synopsis}
                             contentTest={value}
                           />
                         ])
@@ -85,6 +89,10 @@ export default function Home() {
                       <Modal
                         key={value.id}
                         visible={true}
+                        idYtb={value.attributes.youtubeVideoId}
+                        title={value.attributes.titles.en}
+                        titleJp={value.attributes.titles.en_jp}
+                        synopsis={value.attributes.synopsis}
                         contentTest={value}
                       />
                     ])

@@ -7,12 +7,10 @@ import PropTypes from 'prop-types'
 
 import ReactPlayer from 'react-player/youtube'
 
-const CustomModal = ({ key, visible, contentTest }) => {
+const CustomModal = ({ contentTest, idYtb, title, titleJp, synopsis }) => {
   const [isVisible, setIsVisible] = useState(true)
 
-  console.log(key)
-  console.log(visible)
-  console.log(contentTest)
+  console.log(idYtb)
 
   return (
     <Modal
@@ -25,30 +23,29 @@ const CustomModal = ({ key, visible, contentTest }) => {
       }}
     >
       <div className="header">
-        <strong>
-          {contentTest.attributes.titles.en ||
-            contentTest.attributes.titles.en_jp}
-        </strong>
+        <strong>{title || titleJp}</strong>
       </div>
       <div className="body">
         <div className="linkTrailer">
           <ReactPlayer
-            url={`https://www.youtube.com/watch?v=${contentTest.attributes.youtubeVideoId}`}
+            url={`https://www.youtube.com/watch?v=${idYtb}`}
             controls={true}
             width={400}
             height={224.88}
           />
         </div>
-        <p>{contentTest.attributes.synopsis}</p>
+        <p>{synopsis}</p>
       </div>
     </Modal>
   )
 }
 
 CustomModal.propTypes = {
-  key: PropTypes.number.isRequired,
-  visible: PropTypes.bool.isRequired,
-  contentTest: PropTypes.object.isRequired
+  contentTest: PropTypes.object.isRequired,
+  idYtb: PropTypes.string.isRequired,
+  title: PropTypes.string.isRequired,
+  titleJp: PropTypes.string.isRequired,
+  synopsis: PropTypes.string.isRequired
 }
 
 export default CustomModal

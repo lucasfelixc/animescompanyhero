@@ -18,8 +18,10 @@
 ## :bookmark: Método de implantação
 
 O projeto teve como objetivo uma tela simples onde seria mostrada uma lista de animes, para um layout melhor, foi optado por colocar um anime <strong>destaque</strong> no centro da tela, e depois a lista com os demais.
+
 Foi optado por desenvolver um componente que pudesse ser <strong>compartilhado</strong> para cada anime, possibilitando economia de dados, tanto para a lista quanto para os modais de informações adicionais.
-A biblioteca <strong>Ant Design</strong>teve seu papel de protagonismo quando diz respeito a produtividade de componentes HTML.
+
+A biblioteca <strong>Ant Design</strong> teve seu papel de protagonismo quando diz respeito a produtividade de componentes HTML.
 Sendo assim, foi desenvolvido um projeto de abordagem simples, intuitiva e direta que cumpre com o objetivo.
 
 <a id="tecnologias-utilizadas"></a>

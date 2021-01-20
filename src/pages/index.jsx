@@ -75,7 +75,7 @@ export default function Home() {
             {contentData.slice(1).map((value, index) => {
               return (
                 <li
-                  key={value.id}
+                  key={value.attributes.slug}
                   className="itemList"
                   onClick={() =>
                     setModals([

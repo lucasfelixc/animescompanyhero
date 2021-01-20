@@ -10,7 +10,7 @@ import ReactPlayer from 'react-player/youtube'
 const CustomModal = ({ content }) => {
   const [isVisible, setIsVisible] = useState(true)
 
-  console.log(content)
+  console.log(typeof content === 'object')
 
   return (
     <Modal

@@ -16,7 +16,7 @@
 
 ## :bookmark: Sobre
 
-A <strong>Company hero animes</strong> é plataforma de streaming focada na distribuição de animes.
+A <strong>Company hero animes</strong> é uma plataforma de streaming focada na distribuição de animes.
 
 Essa aplicação foi construída durante o desafio da Company Hero.
 

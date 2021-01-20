@@ -40,7 +40,7 @@ export default function Home() {
                 <div className="contentImg" key={value.id}>
                   <div className="imgPlace">
                     <Image
-                      src={value.attributes.coverImage.original}
+                      src={value.attributes.coverImage.large}
                       alt="naruto"
                       layout="fill"
                     />
@@ -52,7 +52,7 @@ export default function Home() {
                     </strong>
                     <button
                       className="btnPlus"
-                      onClick={() =>
+                      onClick={() => {
                         setModals([
                           ...modals,
                           <Modal
@@ -61,7 +61,9 @@ export default function Home() {
                             content={value}
                           />
                         ])
-                      }
+
+                        console.log(modals)
+                      }}
                     >
                       <Plus />
                     </button>

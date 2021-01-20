@@ -35,7 +35,7 @@ export default function Home() {
             <LogoMin className="logoMin" />
           </Header>
           <Content className="site-layout-background">
-            {contentData.slice(0, 1).map((value, index) => {
+            {contentData.slice(0, 1).map(value => {
               return (
                 <div className="contentImg" key={value.id}>
                   <div className="imgPlace">
@@ -62,7 +62,6 @@ export default function Home() {
                             title={value.attributes.titles.en}
                             titleJp={value.attributes.titles.en_jp}
                             synopsis={value.attributes.synopsis}
-                            contentTest={value}
                           />
                         ])
 
@@ -78,7 +77,7 @@ export default function Home() {
             })}
           </Content>
           <ul className="list">
-            {contentData.slice(1).map((value, index) => {
+            {contentData.slice(1).map(value => {
               return (
                 <li
                   key={value.attributes.slug}
@@ -93,7 +92,6 @@ export default function Home() {
                         title={value.attributes.titles.en}
                         titleJp={value.attributes.titles.en_jp}
                         synopsis={value.attributes.synopsis}
-                        contentTest={value}
                       />
                     ])
                   }

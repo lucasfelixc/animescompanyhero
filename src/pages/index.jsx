@@ -3,9 +3,10 @@ import '../styles/pages/home.less'
 
 import { useEffect, useState } from 'react'
 import Image from 'next/image'
-import ReactPlayer from 'react-player/youtube'
 
-import { Layout, Modal } from 'antd'
+import Modal from './components/Modal'
+
+import { Layout } from 'antd'
 
 import api from '../services/api'
 
@@ -15,32 +16,16 @@ import Plus from '../assets/icons/plus.svg'
 // import ArrowUp from '../assets/icons/arrowUp.svg'
 
 const { Header, Content } = Layout
-const count = [1]
 
 export default function Home() {
   const [contentData, setContentData] = useState([])
-  const [isModalVisible, setIsModalVisible] = useState(false)
+  const [modals, setModals] = useState([])
 
   useEffect(() => {
     api.get('/anime').then(response => {
       setContentData(response.data.data)
     })
-
-    console.log(contentData)
-  }, [count])
-
-  const showModal = () => {
-    setIsModalVisible(true)
-  }
-
-  const handleOk = () => {
-    setIsModalVisible(false)
-  }
-
-  const handleCancel = () => {
-    setIsModalVisible(false)
-  }
-
+  }, [])
   return (
     <div>
       <main>
@@ -55,43 +40,32 @@ export default function Home() {
                 <div className="contentImg" key={value.id}>
                   <div className="imgPlace">
                     <Image
-                      src={contentData[0].attributes.coverImage.original}
+                      src={value.attributes.coverImage.original}
                       alt="naruto"
                       layout="fill"
                     />
                   </div>
                   <div className="infos">
                     <strong>
-                      {contentData[0].attributes.titles.en ||
-                        contentData[0].attributes.titles.en_jp}
+                      {value.attributes.titles.en ||
+                        value.attributes.titles.en_jp}
                     </strong>
-                    <button className="btnPlus" onClick={showModal}>
+                    <button
+                      className="btnPlus"
+                      onClick={() =>
+                        setModals([
+                          ...modals,
+                          <Modal
+                            key={value.id}
+                            visible={true}
+                            content={value.attributes}
+                          />
+                        ])
+                      }
+                    >
                       <Plus />
                     </button>
-
-                    <Modal
-                      visible={isModalVisible}
-                      onOk={handleOk}
-                      onCancel={handleCancel}
-                    >
-                      <div className="header">
-                        <strong>
-                          {contentData[0].attributes.titles.en ||
-                            contentData[0].attributes.titles.en_jp}
-                        </strong>
-                      </div>
-                      <div className="body">
-                        <div className="linkTrailer">
-                          <ReactPlayer
-                            url={`https://www.youtube.com/watch?v=${contentData[0].attributes.youtubeVideoId}`}
-                            controls={true}
-                            width={400}
-                            height={224.88}
-                          />
-                        </div>
-                        <p>{contentData[0].attributes.synopsis}</p>
-                      </div>
-                    </Modal>
+                    {modals.map(modal => modal)}
                   </div>
                 </div>
               )
@@ -99,9 +73,21 @@ export default function Home() {
           </Content>
           <ul className="list">
             {contentData.slice(1).map((value, index) => {
-              console.log(value)
               return (
-                <li key={value.id} className="itemList">
+                <li
+                  key={value.id}
+                  className="itemList"
+                  onClick={() =>
+                    setModals([
+                      ...modals,
+                      <Modal
+                        key={value.id}
+                        visible={true}
+                        content={value.attributes}
+                      />
+                    ])
+                  }
+                >
                   <div className="contentTitle">
                     <strong>
                       {value.attributes.titles.en
